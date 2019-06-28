@@ -46,9 +46,9 @@ $ bx hd-new ff7f313152ea95727aff404f3a854794718c9c4392f3670494d83135b527563ca92a
 xprv9s21ZrQH143K2PXvS8LVkpyHLd4aPH4t8wisTstebuBqY8Hvn9YtQpeGEVmtmLtskCLcEvKuMcaBZ7o9k6UEvNyVBPFELPXn2Yvos4ipoMa
 ```
 
-This (master) private key can be used to derive a hardened child private key:
+This (master) private key can be used to derive a hardened (omit the `-d` for not-harneded key) child private key:
 ```
-$ bx hd-private -i 0 xprv9s21ZrQH143K2PXvS8LVkpyHLd4aPH4t8wisTstebuBqY8Hvn9YtQpeGEVmtmLtskCLcEvKuMcaBZ7o9k6UEvNyVBPFELPXn2Yvos4ipoMa
+$ bx hd-private -d -i 0 xprv9s21ZrQH143K2PXvS8LVkpyHLd4aPH4t8wisTstebuBqY8Hvn9YtQpeGEVmtmLtskCLcEvKuMcaBZ7o9k6UEvNyVBPFELPXn2Yvos4ipoMa
 xprv9u1BFCaD4R2j5rBhZ3grFGTvB59h3Y1oSuhLb7mr8aTzPsvwN5z5ktrTTxiMNx42QyisiJytczFDfxmaAeG2Lr3pN5VGkwogHhV13K5ZKXx
 ```
 
