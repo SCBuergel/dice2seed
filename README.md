@@ -23,8 +23,8 @@ In the one-liner, replace `123456` with the result of 100 times throwing the dic
 ## BIP39 mnemonic archiving
 The hexadecimal 256 bit entropy can now be used as the input for a BIP39 mnemonic. We can e.g. use libbitcoin's [BX](https://github.com/libbitcoin/libbitcoin-explorer/wiki/bx-mnemonic-new):
 ```
-$ bx mnemonic-new 1E978F00617621AA87960EE62CE47AADDFCE967B2A1D06D4D814D9D65A5F4F89
-burden round scale seed ginger stem bundle scrub tower grunt burger forum woman enroll uncover dry almost plug ahead recipe grant cook dilemma crumble
+$ bx mnemonic-new 39BD194E3B989D612E6ED5BF485BAE130D53F5F532F29585E98ECD298282A5C3
+defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
 ```
 For production you might want to archive your mnemonic in a secure fashion by using e.g. the [blockplate](https://www.blockplate.com/) and store it in a secure location.
 
