@@ -59,24 +59,24 @@ $ bx hd-to-public xprv9u1BFCaMQ5ZhHZ85UQvCK7GLq9RRenNDZqh5RBmZenUa31JewjGrAg8VN2
 xpub67zXei7FET7zW3CYaSTCgFD5PBFv4F64w4cgDaBBD81YuodoVGb6iUSyDKmo3YMRuQdDx7ffL3WYM6M6xJka5EiXTyM3fKALy698dgbWd9L
 ```
 
-### Create public key from seed
-Use the seed to create a private key:
+### Create public key from HD private key
+The derived child private key can be turned into an EC (elliptic curve) private key via
 ```
-$ bx ec-new ff7f313152ea95727aff404f3a854794718c9c4392f3670494d83135b527563ca92a4080fb0923d8bc36a9a6177fff2995cf3653ea27ba0e525684b03fdd0f74
-ed46cdcd2bebcb15afbcc21dfc7c00c2de716e31601b0f7f1cfddb2860f21ebc
+$ bx hd-to-ec xprv9u1BFCaMQ5ZhHZ85UQvCK7GLq9RRenNDZqh5RBmZenUa31JewjGrAg8VN23fMqun1fwmFKtAQYtWopovLbLtPu5BzRQp2mqP3Kghce2pC3D
+007d414579349bf511ac674c0a0348f560d30748d7e1f72794bdc7687bf468ec
 ```
 
-Generate a compressed public key from the private key (add -u to generate an uncompressed public key from which later also a (different!) uncompressed address can be generated in the same way):
+Generate a compressed public key from the EC private key (add -u to generate an uncompressed public key from which later also a (different!) uncompressed address can be generated in the same way):
 ```
-$ bx ec-to-public ed46cdcd2bebcb15afbcc21dfc7c00c2de716e31601b0f7f1cfddb2860f21ebc
-02b0e439292db72ee1713f02eb113aab395a424390b8d18ea2423b147539551fb0
+$ bx ec-to-public 007d414579349bf511ac674c0a0348f560d30748d7e1f72794bdc7687bf468ec
+036389b88c9fca94e5f353d0b506af2d71a4884a841442b4f487dfb252ab32a944
 ```
 #### The short way from pub key to address
 
 Turn the public key directly into the address:
 ```
-$ bx ec-to-address 02b0e439292db72ee1713f02eb113aab395a424390b8d18ea2423b147539551fb0
-12HooeuD1WbpeY8EXg8HcaSWpgugwRgBqK
+$ bx ec-to-address 036389b88c9fca94e5f353d0b506af2d71a4884a841442b4f487dfb252ab32a944
+14MhLSEbhGDAXZ6iTXvhk1diiapJV1fmgp
 ```
 
 #### The long way from pub key to address (but you understand what is going on!)
@@ -84,37 +84,37 @@ $ bx ec-to-address 02b0e439292db72ee1713f02eb113aab395a424390b8d18ea2423b1475395
 
 1. Perform SHA-256 hashing on the public key.
 ```
-$ bx sha256 02b0e439292db72ee1713f02eb113aab395a424390b8d18ea2423b147539551fb0
-88507edcd1a5027d22da49ff04d99d6b07562c6c9ab85caae9bab0537314dda3
+$ bx sha256 036389b88c9fca94e5f353d0b506af2d71a4884a841442b4f487dfb252ab32a944
+5d6289537cab715830f71ca69c4031a768945761e7eb8d9bbed07cbda884aef8
 ```
 2. Perform RIPEMD-160 hashing on the result of SHA-256.
 ```
-$ bx ripemd160 88507edcd1a5027d22da49ff04d99d6b07562c6c9ab85caae9bab0537314dda3
-0e25d9fb6e38decfb00a537291e7350675f1aaa8
+$ bx ripemd160 5d6289537cab715830f71ca69c4031a768945761e7eb8d9bbed07cbda884aef8
+24d25ddafa2b707fbcd2981679e1060c0ca3e1f4
 ```
 3. Add version byte in front of RIPEMD-160 hash (0x00 for Main Network).
 ```
-$ echo 000e25d9fb6e38decfb00a537291e7350675f1aaa8
-000e25d9fb6e38decfb00a537291e7350675f1aaa8
+$ echo 0024d25ddafa2b707fbcd2981679e1060c0ca3e1f4
+0024d25ddafa2b707fbcd2981679e1060c0ca3e1f4
 ```
 4. Perform SHA-256 hash on the extended RIPEMD-160 result.
 ```
-$ bx sha256 000e25d9fb6e38decfb00a537291e7350675f1aaa8
-bf4eb07f00c8fa5a601c22a554cfba1967672fb74aeac5d64e30585f8e24797c
+$ bx sha256 0024d25ddafa2b707fbcd2981679e1060c0ca3e1f4
+0ada374914d6f089345fa9ca4b61b603e0542768266810fadaa894db31131170
 ```
 5. Perform SHA-256 hash on the result of the previous SHA-256 hash.
 ```
-$ bx sha256 bf4eb07f00c8fa5a601c22a554cfba1967672fb74aeac5d64e30585f8e24797c
-43788272b23793bc2e1a226a82b451a91a4b0583abcb9054d4e12af1cf8921ef
+$ bx sha256 0ada374914d6f089345fa9ca4b61b603e0542768266810fadaa894db31131170
+cc7cb1652b467eee1175c4166756b21b3f7e19660a5d2d3d06f4f5a099f550f1
 ```
 6. Take the first 4 bytes (first 8 hex characters) of the second SHA-256 hash. This is the address checksum. Add the 4 checksum bytes at the end of extended RIPEMD-160 hash from stage 3. This is the 25-byte binary Bitcoin Address.
 ```
-$ echo 000e25d9fb6e38decfb00a537291e7350675f1aaa843788272
-000e25d9fb6e38decfb00a537291e7350675f1aaa843788272
+$ echo 0024d25ddafa2b707fbcd2981679e1060c0ca3e1f4cc7cb165
+0024d25ddafa2b707fbcd2981679e1060c0ca3e1f4cc7cb165
 ```
 7. Convert the result from a byte string into a base58 string using Base58Check encoding. This is the most commonly used Bitcoin Address format.
 ```
-$ bx base58-encode 000e25d9fb6e38decfb00a537291e7350675f1aaa843788272
-12HooeuD1WbpeY8EXg8HcaSWpgugwRgBqK
+$ bx base58-encode 0024d25ddafa2b707fbcd2981679e1060c0ca3e1f4cc7cb165
+14MhLSEbhGDAXZ6iTXvhk1diiapJV1fmgp
 ```
 Note that this is exactly the same address that was derived with the higher-level command `bx ec-to-address` in the shorter way above.
