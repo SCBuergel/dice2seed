@@ -40,20 +40,27 @@ $ bx mnemonic-to-seed --language en --passphrase "PASSWORD is not s3cret" defy t
 ac09fdce665aa86195fd3dba3f3731bb23c7735e31de64569c3b54ad348668bfb4ceefc4758311784510cc4cf3b3c460749a1cd0e61d608689b55b0c4ef72cca
 ```
 
-### 4.1 HD privat and public key from seed
-Use the seed to create a private key:
+### 4.1 HD master privat and public key from seed
+Use the seed to create a master private key `m`:
 ```
 $ bx hd-new ac09fdce665aa86195fd3dba3f3731bb23c7735e31de64569c3b54ad348668bfb4ceefc4758311784510cc4cf3b3c460749a1cd0e61d608689b55b0c4ef72cca
 xprv9s21ZrQH143K3L2duGWeQ6e3PA6fJLDrkRkbsaxZyAb8ung1sUb2UJmgDPKxgFQeZcxosJvGL2m1hjmqZqQKCAxJsa9g1k5rxE8h7aXxaEs
 ```
 
-This (master) private key `m` can be used to derive a hardened (omit the `-d` for not-harneded key) child private key `m/0H`:
+A corresponding master public key `M` can be derived from this this master private key:
+```
+$ bx hd-to-public xprv9s21ZrQH143K3L2duGWeQ6e3PA6fJLDrkRkbsaxZyAb8ung1sUb2UJmgDPKxgFQeZcxosJvGL2m1hjmqZqQKCAxJsa9g1k5rxE8h7aXxaEs
+xpub661MyMwAqRbcFp771J3emEamwBw9hnwi7egCfyNBXW87nb1AR1uH276A4diYRTiduo7y67kd8U8X2KQKsjNVCC9Z2U5YF6kCKppkTL4oQAq
+```
+
+#### 4.1.1 Derive child keys from HD private keys
+The master private key `m` can be used to derive a hardened (omit the `-d` for not-harneded key) child private key `m/0H`:
 ```
 $ bx hd-private -d -i 0 xprv9s21ZrQH143K3L2duGWeQ6e3PA6fJLDrkRkbsaxZyAb8ung1sUb2UJmgDPKxgFQeZcxosJvGL2m1hjmqZqQKCAxJsa9g1k5rxE8h7aXxaEs
 xprv9uqh6TbyfqnVC2uhh5BRFK9iZBCutjL16Py968XMyfNjteHkDqggpFaFV3Kc8j2rLqBCi94Por8fie86Y4LYThbL9eax4wqm6vEuk1EGUE8
 ```
 
-The corresponding public key can be generated from the derived private key :
+The corresponding public key `M/0H` can be generated from the derived private key :
 ```
 $ bx hd-to-public xprv9uqh6TbyfqnVC2uhh5BRFK9iZBCutjL16Py968XMyfNjteHkDqggpFaFV3Kc8j2rLqBCi94Por8fie86Y4LYThbL9eax4wqm6vEuk1EGUE8
 xpub68q3Vy8sWDLnQWzAo6iRcT6T7D3QJC3rTctjtWvyXzuimSctmNzwN3tjLKFc96cYUt8aHPD9Sgb1dfNfLAfJSTev1PTQ8fXmkH8H1DLkdRH
@@ -65,7 +72,19 @@ $ bx hd-public -d -i 0 xprv9s21ZrQH143K3L2duGWeQ6e3PA6fJLDrkRkbsaxZyAb8ung1sUb2U
 xpub68q3Vy8sWDLnQWzAo6iRcT6T7D3QJC3rTctjtWvyXzuimSctmNzwN3tjLKFc96cYUt8aHPD9Sgb1dfNfLAfJSTev1PTQ8fXmkH8H1DLkdRH
 ```
 
-#### 4.1.1 Derive child keys from HD private keys
+The non-hardneded child public `M/0` key can also be directly obtained from the master public key `M`:
+```
+$ bx hd-public -i 0 xpub661MyMwAqRbcFp771J3emEamwBw9hnwi7egCfyNBXW87nb1AR1uH276A4diYRTiduo7y67kd8U8X2KQKsjNVCC9Z2U5YF6kCKppkTL4oQAq
+xpub68q3Vy8jAYopGGGdjk8ysAjUYg5wWmHB32SgMXWEvQvmD3s7aiUQvkN1XxwqVaDdUSNmHJVzUPx3vtWkSs6VAsr6cR2c391xcBhsAiEsESr
+```
+Note that the child public key derivation from parent public keys only works for non-hardened child public keys.
+
+The above key `M/0` is identically to first deriving an intermediate private key `m/0` and then from there deriving the corresponding public key `M/0`:
+```
+$ bx hd-private -i 0 xprv9s21ZrQH143K3L2duGWeQ6e3PA6fJLDrkRkbsaxZyAb8ung1sUb2UJmgDPKxgFQeZcxosJvGL2m1hjmqZqQKCAxJsa9g1k5rxE8h7aXxaEs | bx hd-to-public
+xpub68q3Vy8jAYopGGGdjk8ysAjUYg5wWmHB32SgMXWEvQvmD3s7aiUQvkN1XxwqVaDdUSNmHJVzUPx3vtWkSs6VAsr6cR2c391xcBhsAiEsESr
+```
+
 Further child private keys can now be created from a parent private key. The corresponding public keys can be generated in the same fashion as above for the master public key. E.g. the master private key `m/OH` can be used to generate the following child private keys.
 
 ##### 4.1.1.1 m/OH -> m/OH/0H
