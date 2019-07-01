@@ -34,10 +34,20 @@ Use the mnemonic and optionally a password to create a seed:
 $ bx mnemonic-to-seed --language en defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
 ac09fdce665aa86195fd3dba3f3731bb23c7735e31de64569c3b54ad348668bfb4ceefc4758311784510cc4cf3b3c460749a1cd0e61d608689b55b0c4ef72cca
 ```
-If you have a BX version with ICU build enabled (the current binaries do not ship with that) then you could also strengthen your seed with a password:
+If you have a BX version with ICU build enabled then you could also strengthen your seed with a password:
 ```
 $ bx mnemonic-to-seed --language en --passphrase "PASSWORD is not s3cret" defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
 ac09fdce665aa86195fd3dba3f3731bb23c7735e31de64569c3b54ad348668bfb4ceefc4758311784510cc4cf3b3c460749a1cd0e61d608689b55b0c4ef72cca
+```
+Note that the binaries which are distributed via GitHub do not support ICU and thus you cannot use the password feature. Instead you have to follow the fairly straightforward [build instructions](https://github.com/libbitcoin/libbitcoin-explorer#installation) and then e.g. build via:
+
+```
+$ ./install.sh --prefix=/home/me/myprefix --with-icu --build-icu --without-tests --build-boost --build-zmq --disable-shared
+```
+Adjust `/home/me/myprefix` to a folder in your home directory into which you want to build bx, e.g. `/User/Sebastian/libbitcoin`.
+You can then copy the resulting binary `bx` into some location that is on your PATH, e.g.:
+```
+$ cp libbitcoin/bin/bx /usr/local/bin/
 ```
 
 ### 4.1 HD master privat and public key from seed
