@@ -212,3 +212,12 @@ $ bx base58-encode 008a3aa09ad02fafea9324d027820b5e060bec19d11c774ecd
 1DbtUySeX4oP8Z1BSej3VC29xF6bX35o96
 ```
 Note that this is exactly the same address that was derived with the higher-level command `bx ec-to-address` in the shorter way above.
+
+# 5. From dice to address in on go
+All of the above comments can be concatenated in the following form to obtain the address at the standard derivation path `m/44'/0'/0'/0/0`:
+```
+$ dice1=1234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234; dice0=$(echo $dice1 | tr 1-6 0-5); echo "obase=16;ibase=6; $dice0" | bc | sed -e 's/.*\(.\{64\}\)$/\1/' | bx mnemonic-new | bx mnemonic-to-seed --language en | bx hd-new | bx hd-private -d -i 44 | bx hd-private -d -i 0 | bx hd-private -d -i 0 | bx hd-private -i 0 | bx hd-private -i 0 | bx hd-to-ec | bx ec-to-public | bx ec-to-address
+1FwAening1vyxwjn1SX2eQ2NTu2NapEAfp
+```
+
+This address can be confirmed by [online tools](https://iancoleman.io/bip39/).
