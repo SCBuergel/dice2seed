@@ -1,6 +1,7 @@
 # Based on https://github.com/swansontec/dice2key
 #
-# Converts a sequence of dice rolls to a Bitcoin private key.
+# Converts a sequence of dice rolls to a seed that can be used
+# to obtain a mnemonic to then generate Bitcoin private keys.
 #
 # Simply roll a standard 6-sided die 100 times, and pass the resulting
 # numbers into the script.

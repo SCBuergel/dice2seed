@@ -219,5 +219,23 @@ All of the above comments can be concatenated in the following form to obtain th
 $ dice1=1234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234; dice0=$(echo $dice1 | tr 1-6 0-5); echo "obase=16;ibase=6; $dice0" | bc | sed -e 's/.*\(.\{64\}\)$/\1/' | bx mnemonic-new | bx mnemonic-to-seed --language en | bx hd-new | bx hd-private -d -i 44 | bx hd-private -d -i 0 | bx hd-private -d -i 0 | bx hd-private -i 0 | bx hd-private -i 0 | bx hd-to-ec | bx ec-to-public | bx ec-to-address
 1FwAening1vyxwjn1SX2eQ2NTu2NapEAfp
 ```
-
 This address can be confirmed by [online tools](https://iancoleman.io/bip39/) or the BIP39 mnemonic can be imported in wallets like [Electrum](https://electrum.org) to sign transactions from that address and broadcast them.
+
+Get private key `m/44'/0'/0'/0/0` from dice and passphrase
+```
+$ dice1=1234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234; dice0=$(echo $dice1 | tr 1-6 0-5); echo "obase=16;ibase=6; $dice0" | bc | sed -e 's/.*\(.\{64\}\)$/\1/' | bx mnemonic-new | bx mnemonic-to-seed --language en --passphrase "P@SSWORD 1$ n0t s3cret." | bx hd-new | bx hd-private -d -i 44 | bx hd-private -d -i 0 | bx hd-private -d -i 0 | bx hd-private -i 0 | bx hd-private -i 0
+xprvA34p7ZRnVXF7DhMetLZm1CLhbR1pYtJvQBtajkDmE91dSxVWNLQhToWt2YZGEWzPuCKVQTAdcmaw1cuTAkdnuKuAfU7TL68iecsB4Sa2ZZA
+```
+
+# 6. Export list of private keys from mnemonic and passphrase:
+Use the script `dice2keys.sh` to export a list of (by default 10) HD keys (m/44'/0'/0'/0/0 to m/44'/10'/0'/0/0) to the CSV file `keys.txt`. This requires a BX version with ICU build enabled as explained [above](https://github.com/SCBuergel/dice2seed#4-using-mnemonic).
+
+```
+$ . dice2keys.sh 1234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234 'P@SSWORD 1$ n0t s3cret.'
+your entropy is: 39BD194E3B989D612E6ED5BF485BAE130D53F5F532F29585E98ECD298282A5C3
+your mnemonic is: defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
+your seed is: f320457d50602d0b1aa4adcfaf445647b8ac1410ecf42a6fb5c2955055f12fbbd267d9c6b1c059b70f088c2e9cc44b875c05660e80ca07c02ab607265c919396
+your master private key is: xprv9s21ZrQH143K3MUXsSGZNHGAKWYF7Ke45cq6uYXz9K5j9hnUnoUMo1jJ2huiXf8bwwh678w599zMqqgNkZeTGcG7fkdu6TJZPJsXdHKR1qr
+M/44H: xprv9v2YKHf2AK88aZtFyuH3wLv4mt7CtjUmSXzJgCuDwg3BW6xxukj5z55y7rAB9f4JJo2E6mLZ2p1tVcfamCvmz5YB2CAZB3SEmEdnVqo8arK
+took 0 s to generate 10 keys
+```
