@@ -220,4 +220,4 @@ $ dice1=123456123456123456123456123456123456123456123456123456123456123456123456
 1FwAening1vyxwjn1SX2eQ2NTu2NapEAfp
 ```
 
-This address can be confirmed by [online tools](https://iancoleman.io/bip39/).
+This address can be confirmed by [online tools](https://iancoleman.io/bip39/) or the BIP39 mnemonic can be imported in wallets like [Electrum](https://electrum.org) to sign transactions from that address and broadcast them.
