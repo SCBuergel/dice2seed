@@ -32,7 +32,7 @@ For production you might want to archive your mnemonic in a secure fashion by us
 Use the mnemonic and optionally a password to create a seed:
 ```
 $ bx mnemonic-to-seed --language en defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
-ac09fdce665aa86195fd3dba3f3731bb23c7735e31de64569c3b54ad348668bfb4ceefc4758311784510cc4cf3b3c460749a1cd0e61d608689b55b0c4ef72cca
+5f048ddf9a3860ff29665980bd27d9f31db4a1678c1fb174cf5107cd3cb415afcf6234c910307fa6a7082af48f1c7802559fdf351d6a3d36a9071ee6a0692823
 ```
 If you have a BX version with ICU build enabled then you could also strengthen your seed with a password:
 ```
