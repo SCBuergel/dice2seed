@@ -26,11 +26,13 @@ dice=$(echo "$1" | tr 1-6 0-5)
 password=$2
 
 # file into which the output keys are written
-outputFile="keys.txt"
+outputFile="pubKeys.txt"
 
-# output file contains keys for this coin type
-# (m/44'/0'/0'/0/0 to m/44'/maxCoinTyp'/0'/0/0)
-maxCoinTyp=10
+# output file contains keys for all coin types and address indices
+# up to the maximal values defined here
+# (m/44'/0'/0'/0/0 to m/44'/maxCoinTyp'/0'/0/maxAddressIndex)
+maxCoinTyp=100
+maxAddressIndex=10
 
 # we should have at least 100 dice rolls to reach an entropy of 256 bits
 # (6^100 > 2^256)
@@ -49,7 +51,7 @@ echo "your entropy is: $entropy"
 mnemonic=$(bx mnemonic-new $entropy)
 echo "your mnemonic is: $mnemonic"
 
-seed=$(bx mnemonic-to-seed --language en --passphrase "$password" $mnemonic)
+seed=$(bx mnemonic-to-seed --language en $mnemonic)
 echo "your seed is: $seed"
 
 M=$(bx hd-new $seed)
@@ -59,13 +61,20 @@ M44H=$(bx hd-private -d -i 44 $M)
 echo "M/44H: $M44H"
 
 # generate addresses and store in CSV file
-# c, m/44'/c'/0'/0/0
-echo "c, m/44'/c'/0'/0/0" > $outputFile
+# c, M/44'/c'/0'/0/a
 start=`date +%s`
-for (( c = 0; c <= $maxCoinTyp; c++ )) 
+echo "CSV file of uncompressed elliptic curve public keys generated from a BIP39 secrect mnemonic and optional password for a range BIP32 HD wallets with BIP43 purpose and BIP44 paths and coin types (m/44'/COINTYPE'/0'/0/ADDRESSINDEX)" >> $outputFile
+echo "COINTYPE, ADDRESS_INDEX, EC_UNCOMPRESSED_PUBKEY" >> $outputFile
+for (( c = 0; c <= $maxCoinTyp; c++ ))
 do
-    childPrivKey=$(echo $M44H | bx hd-private -d -i $c | bx hd-private -d -i 0 | bx hd-private -i 0 | bx hd-private -i 0)
-    echo "$c, $childPrivKey" >> $outputFile
+    echo "Generating keys for coin type $c out of $maxCoinTyp..."
+    parentPrivKey=$(echo $M44H | bx hd-private -d -i $c | bx hd-private -d -i 0 | bx hd-private -i 0 | bx hd-private -i 0)
+    for (( a = 0; a <= $maxAddressIndex; a++ ))
+    do
+        childPrivKey=$(bx hd-private -i $a $parentPrivKey)
+        childEcPubKey=$(echo $childPrivKey | bx hd-to-ec | bx ec-to-public -u)
+        echo "$c, $a, $childEcPubKey" >> $outputFile
+    done
 done
 end=`date +%s`
 runtime=$((end-start))

@@ -1,0 +1,27 @@
+{
+  "name": "dice2seed",
+  "version": "1.0.0",
+  "description": "generate seed for bitcoin (and most other crypto asset) wallets",
+  "main": "pubKey2EthAddr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SCBuergel/dice2seed.git"
+  },
+  "keywords": [
+    "Bitcoin",
+    "Ethereum",
+    "keys"
+  ],
+  "author": "SCBuergel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SCBuergel/dice2seed/issues"
+  },
+  "homepage": "https://github.com/SCBuergel/dice2seed#readme",
+  "dependencies": {
+    "js-sha3": "^0.8.0"
+  }
+}

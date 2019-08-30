@@ -237,5 +237,5 @@ your mnemonic is: defy trip fatal jaguar mean rack rifle survey satisfy drift tw
 your seed is: f320457d50602d0b1aa4adcfaf445647b8ac1410ecf42a6fb5c2955055f12fbbd267d9c6b1c059b70f088c2e9cc44b875c05660e80ca07c02ab607265c919396
 your master private key is: xprv9s21ZrQH143K3MUXsSGZNHGAKWYF7Ke45cq6uYXz9K5j9hnUnoUMo1jJ2huiXf8bwwh678w599zMqqgNkZeTGcG7fkdu6TJZPJsXdHKR1qr
 M/44H: xprv9v2YKHf2AK88aZtFyuH3wLv4mt7CtjUmSXzJgCuDwg3BW6xxukj5z55y7rAB9f4JJo2E6mLZ2p1tVcfamCvmz5YB2CAZB3SEmEdnVqo8arK
-took 0 s to generate 10 keys
 ```
+Beware that this takes about one minute for 100 coin types and 10 pub keys.
