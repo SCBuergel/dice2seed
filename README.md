@@ -234,8 +234,8 @@ Use the script `dice2keys.sh` to export a list of (by default 10) HD keys (m/44'
 $ . dice2keys.sh 1234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234 'P@SSWORD 1$ n0t s3cret.'
 your entropy is: 39BD194E3B989D612E6ED5BF485BAE130D53F5F532F29585E98ECD298282A5C3
 your mnemonic is: defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
-your seed is: f320457d50602d0b1aa4adcfaf445647b8ac1410ecf42a6fb5c2955055f12fbbd267d9c6b1c059b70f088c2e9cc44b875c05660e80ca07c02ab607265c919396
-your master private key is: xprv9s21ZrQH143K3MUXsSGZNHGAKWYF7Ke45cq6uYXz9K5j9hnUnoUMo1jJ2huiXf8bwwh678w599zMqqgNkZeTGcG7fkdu6TJZPJsXdHKR1qr
-M/44H: xprv9v2YKHf2AK88aZtFyuH3wLv4mt7CtjUmSXzJgCuDwg3BW6xxukj5z55y7rAB9f4JJo2E6mLZ2p1tVcfamCvmz5YB2CAZB3SEmEdnVqo8arK
+your seed is: ac09fdce665aa86195fd3dba3f3731bb23c7735e31de64569c3b54ad348668bfb4ceefc4758311784510cc4cf3b3c460749a1cd0e61d608689b55b0c4ef72cca
+your master private key is: xprv9s21ZrQH143K3L2duGWeQ6e3PA6fJLDrkRkbsaxZyAb8ung1sUb2UJmgDPKxgFQeZcxosJvGL2m1hjmqZqQKCAxJsa9g1k5rxE8h7aXxaEs
+M/44H: xprv9uqh6TbyfqnX8LHHnzRcuLfNDyzMkjcLPmy3C6vuo11HsH2ScWnz7TX4CrYdsPrk4WcQdXpXJs6v9iFmrDKV81N66WJbe5MC43oXaqNyLoS
 ```
 Beware that this takes about one minute for 100 coin types and 10 pub keys.
