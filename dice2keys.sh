@@ -25,7 +25,7 @@ dice=$(echo "$1" | tr 1-6 0-5)
 password=$2
 
 # file into which the output keys are written
-outputFile="pubKeys.txt"
+outputFile="UpubKeys.txt"
 
 # output file contains keys for all coin types and address indices
 # up to the maximal values defined here
@@ -71,7 +71,7 @@ do
     for (( a = 0; a <= $maxAddressIndex; a++ ))
     do
         childPrivKey=$(bx hd-private -i $a $parentPrivKey)
-        childEcPubKey=$(echo $childPrivKey | bx hd-to-ec | bx ec-to-public -u)
+        childEcPubKey=$(echo $childPrivKey | bx hd-to-ec | bx ec-to-public)
         echo "$c, $a, $childEcPubKey" >> $outputFile
     done
 done
