@@ -26,6 +26,11 @@ The hexadecimal 256 bit entropy can now be used as the input for a BIP39 mnemoni
 $ bx mnemonic-new 39BD194E3B989D612E6ED5BF485BAE130D53F5F532F29585E98ECD298282A5C3
 defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
 ```
+You can also add the mnenomic key generation to the above give one-liner:
+```
+$ dice1=1234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234561234; dice0=$(echo $dice1 | tr 1-6 0-5); echo "obase=16;ibase=6; $dice0" | bc | sed -e 's/.*\(.\{64\}\)$/\1/' | bx mnemonic-new
+defy trip fatal jaguar mean rack rifle survey satisfy drift twist champion steel wife state furnace night consider glove olympic oblige donor novel left
+```
 For production you might want to archive your mnemonic in a secure fashion by using e.g. the [blockplate](https://www.blockplate.com/) and store it in a secure location.
 
 ## 4. Using mnemonic
